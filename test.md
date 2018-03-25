@@ -64,6 +64,7 @@ def setUp(self):
   "origin": "36.255.85.10",
   "url": "https://httpbin.org/get"
 }</dd></dl>
+
 * Passing `path` and request `method type` as passing parameters to send_request.
 * return object `response` contains response data,code and headers and that can be accessed by `response['data'],response['code'] & response['headers']`.
 
