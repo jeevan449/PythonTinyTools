@@ -90,8 +90,9 @@ Sample POST request & response.
 
     Parameters {'test':'post'}
 </dd>
-<dt>Response Data</dt></dl>
-```
+<dt>Response Data</dt><dd>test</dd></dl>
+
+```json
 {
   "args": {},
   "data": "{\"test\": \"post\"}",
