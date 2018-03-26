@@ -90,8 +90,8 @@ Sample POST request & response.
 
     Parameters {'test':'post'}
 </dd>
-<dt>Response Data</dt>
-<dd>
+<dt>Response Data</dt></dl>
+```
 {
   "args": {},
   "data": "{\"test\": \"post\"}",
@@ -112,8 +112,7 @@ Sample POST request & response.
   "origin": "36.255.85.10",
   "url": "https://httpbin.org/post"
 }
-</dd>
-</dl>
+```
 
 ```python
 def test_post_request(self):
