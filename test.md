@@ -46,10 +46,10 @@ def setUp(self):
 `send_request` single method for sending GET/POST/PUT/DELETE request types.
 ##### GET
 Sample GET request and response.
-<dl> <dt> HTTP GET request: </dt>
-  <dd> https://httpbin.org/get</dd>
-<dt>Response Data</dt>
- <dd>{
+HTTP GET request:
+    `https://httpbin.org/get</dd>`
+Response Data
+ ```{
   "args": {},
   "headers": {
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
@@ -64,7 +64,7 @@ Sample GET request and response.
   },
   "origin": "36.255.85.10",
   "url": "https://httpbin.org/get"
-}</dd></dl>
+}```
 
 - Unittest for sending above request and verifing `Host` value from response.
 ```python
@@ -84,13 +84,12 @@ def test_get_request(self):
 4. Asserting response status code & data.
 ##### POST
 Sample POST request & response.
-<dl>
-<dt>HTTP POST Request</dt>
-<dd>https://httpbin.org/post
+HTTP POST Request
+https://httpbin.org/post
 
     Parameters {'test':'post'}
-</dd>
-<dt>Response Data</dt><dd>test</dd></dl>
+
+Response Data
 
 ```json
 {
