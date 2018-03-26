@@ -39,10 +39,10 @@ def setUp(self):
         self.log = self.rest.get_logObj()
         self.json = self.rest.get_jsonObj()
  ```
-* Creating object for `PyRestLib` class and passing `URL` as parameter.
-* Getting logger & Json object
+- Creating object for `PyRestLib` class and passing `URL` as parameter.
+- Getting logger & Json object
 
-- Step-3: Writing unittests for GET,POST,PUT,DELETE requests.
+Step-3: Writing unittests for GET,POST,PUT,DELETE requests.
 `send_request` single method for sending GET/POST/PUT/DELETE request types.
 ##### GET
 Sample GET request and response.
