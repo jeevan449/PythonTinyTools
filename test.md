@@ -45,9 +45,10 @@ def setUp(self):
 - Step-3: Writing unittests for GET,POST,PUT,DELETE requests.
 `send_request` single method for sending GET/POST/PUT/DELETE request types.
 ##### GET
+Sample GET request and response.
 <dl> <dt> HTTP GET request: </dt>
   <dd> https://httpbin.org/get</dd>
-<dt>Response:</dt>
+<dt>Response Data</dt>
  <dd>{
   "args": {},
   "headers": {
@@ -65,9 +66,7 @@ def setUp(self):
   "url": "https://httpbin.org/get"
 }</dd></dl>
 
-* Passing `path` and request `method type` as passing parameters to send_request.
-* return object `response` contains response data,code and headers and that can be accessed by `response['data'],response['code'] & response['headers']`.
-
+- Unittest for sending above request and verifing `Host` value from response.
 ```python
 def test_get_request(self):
         response =  self.rest.send_request('/get',method_name='GET')
@@ -79,11 +78,47 @@ def test_get_request(self):
         self.assertEqual(verify_host,'httpbin.org')
 ```
 
+1. Passing `path` and request `method type` as passing parameters to send_request.
+2. return object `response` contains response data,code and headers and that can be accessed by `response['data'],response['code'] & response['headers']`.
+3. Passing response data and key to `get_key_value` method to get value.
+4. Asserting response status code & data.
 ##### POST
+Sample POST request & response.
+<dl>
+<dt>HTTP POST Request</dt>
+<dd>https://httpbin.org/post
+
+    Parameters {'test':'post'}
+</dd>
+<dt>Response Data</dt>
+<dd>
+{
+  "args": {},
+  "data": "{\"test\": \"post\"}",
+  "files": {},
+  "form": {},
+  "headers": {
+    "Accept": "*/*",
+    "Accept-Encoding": "gzip, deflate",
+    "Connection": "close",
+    "Content-Length": "16",
+    "Content-Type": "application/json",
+    "Host": "httpbin.org",
+    "User-Agent": "python-requests/2.18.4"
+  },
+  "json": {
+    "test": "post"
+  },
+  "origin": "36.255.85.10",
+  "url": "https://httpbin.org/post"
+}
+</dd>
+</dl>
+
 ```python
 def test_post_request(self):
-        data = {'test':'post'}
-        json_data = self.json.dump_json_data(data)
+        data = {'test':'post'} # Step 1
+        json_data = self.json.dump_json_data(data) # Step 1
         response = self.rest.send_request('/post',method_name='POST',
                                           parameters=json_data)
         response_code = response['code']
@@ -92,6 +127,13 @@ def test_post_request(self):
         self.assertEqual(response_code, 200)
         self.assertEqual(verify_response_data,'post')
 ```
+1. Converting python dictionary into `JSON` data.
+2. Passing `path` and request `method type` as parameters to send_request.
+3. return object `response` contains response data,code and headers and that can be accessed by `response['data'],response['code'] & response['headers']`.
+4. Passing response data and key to `get_key_value` method to get value.
+5. Asserting response status code & data.
+
+Same way for PUT & DELETE request.
 ##### PUT
 ```python
     def test_put_request(self):
