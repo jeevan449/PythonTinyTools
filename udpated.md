@@ -26,13 +26,13 @@ Few features of `pyRestAuto` Package .
 
 #### Usage
 **Writing unit test cases for REST API's (No authentication):**
-
-- Step-1: Importing pyRest_lib
+***
+**Step-1:** Importing pyRest_lib
 ```python
 from rest_lib import pyRest_lib
 ```
 
-- Step-2: Writing the **setUp** method
+**Step-2:** Writing the **setUp** method
 ```python
 def setUp(self):
         self.rest = pyRest_lib.PyRestLib(url='https://httpbin.org')
@@ -42,7 +42,7 @@ def setUp(self):
 - Creating object for `PyRestLib` class and passing `URL` as parameter.
 - Getting logger & Json object
 
-Step-3: Writing unittests for GET,POST,PUT,DELETE requests.
+**Step-3:** Writing unittests for GET,POST,PUT,DELETE requests.
 `send_request` single method for sending GET/POST/PUT/DELETE request types.
 ##### GET
 Sample GET request and response.
@@ -150,6 +150,7 @@ def test_delete_request(self):
 ```
 
 **Writing unit test cases for REST API's with authentication):**
+***
 Step 1: Add authentication details in config.yaml file.
 ```ymal
 url : https://api.github.com
