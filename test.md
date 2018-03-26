@@ -64,7 +64,8 @@ Response Data
   },
   "origin": "36.255.85.10",
   "url": "https://httpbin.org/get"
-}```
+}
+```
 
 - Unittest for sending above request and verifing `Host` value from response.
 ```python
