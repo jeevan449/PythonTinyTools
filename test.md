@@ -25,7 +25,7 @@ Few features of `pyRestAuto` Package .
 -   Json parsing capabilities
 
 #### Usage
-**Writing unit test cases for REST API's (No authentication):**
+#### **Writing unit test cases for REST API's (No authentication):**
 ***
 **Step-1:** Importing pyRest_lib
 ```python
@@ -152,7 +152,7 @@ def test_delete_request(self):
         self.assertEqual(code, 200)
 ```
 
-**Writing unit test cases for REST API's with authentication):**
+#### **Writing unit test cases for REST API's with authentication):**
 ***
 Authentications supported HTTPBasicAuth,HTTPDigestAuth and Session
 
@@ -230,8 +230,13 @@ Unittest for sending GET request and verifying response `data` & `status code` .
         path = '/user/following'
         response = self.rest_obj.send_request(path,method_name='GET')   # Step 1
         code = response['code']                                         # Step 2
-        data = response['data']                                         # Step 3
-        verify_data = self.json.get_key_value(response_data,'login')
-        self.assertEqual(verify_data,'jeevan449')
-        self.assertEqual(code,200)                                      # Step
+        data = response['data']                                         # Step 2
+        verify_data = self.json.get_key_value(response_data,'login')    # Step 3
+        self.assertEqual(verify_data,'jeevan449')                       # Step 4
+        self.assertEqual(code,200)                                      # Step 4
 ```
+
+1) Passing path and method_name to send_request method.
+2) Assigning response code and data to variable
+3) Parsing login key value from the response data.
+4) Verifying response data and code.
