@@ -26,13 +26,13 @@ Few features of `pyRestAuto` Package .
 
 #### Usage
 **Writing unit test cases for REST API's (No authentication):**
-
-- Step-1: Importing pyRest_lib
+***
+**Step-1:** Importing pyRest_lib
 ```python
 from rest_lib import pyRest_lib
 ```
 
-- Step-2: Writing the **setUp** method
+**Step-2:** Writing the **setUp** method
 ```python
 def setUp(self):
         self.rest = pyRest_lib.PyRestLib(url='https://httpbin.org')
@@ -42,13 +42,15 @@ def setUp(self):
 - Creating object for `PyRestLib` class and passing `URL` as parameter.
 - Getting logger & Json object
 
-Step-3: Writing unittests for GET,POST,PUT,DELETE requests.
+**Step-3:** Writing unittests for GET,POST,PUT,DELETE requests.
 `send_request` single method for sending GET/POST/PUT/DELETE request types.
-##### GET
+##### GET Request example:
 Sample GET request and response.
-HTTP GET request:
+
+###### HTTP GET request:
     `https://httpbin.org/get</dd>`
-Response Data
+
+###### Response Data
  ```{
   "args": {},
   "headers": {
@@ -83,8 +85,9 @@ def test_get_request(self):
 2. return object `response` contains response data,code and headers and that can be accessed by `response['data'],response['code'] & response['headers']`.
 3. Passing response data and key to `get_key_value` method to get value.
 4. Asserting response status code & data.
-##### POST
+##### POST Request example:
 Sample POST request & response.
+
 HTTP POST Request
 https://httpbin.org/post
 
@@ -133,15 +136,15 @@ def test_post_request(self):
 4. Passing response data and key to `get_key_value` method to get value.
 5. Asserting response status code & data.
 
-Same way for PUT & DELETE request.
-##### PUT
+###### Same way for PUT & DELETE request.
+##### PUT Request example:
 ```python
     def test_put_request(self):
         response = self.rest.send_request('/put',method_name='PUT')
         code = response['code']
         self.assertEqual(code, 200)
 ```
-##### DELETE
+##### DELETE Request example:
 ```python
 def test_delete_request(self):
         response = self.rest.send_request('/delete',method_name='DELETE')
@@ -149,3 +152,86 @@ def test_delete_request(self):
         self.assertEqual(code, 200)
 ```
 
+**Writing unit test cases for REST API's with authentication):**
+***
+Authentications supported HTTPBasicAuth,HTTPDigestAuth and Session
+
+**Step 1:** Add authentication details in config.yaml file.
+```ymal
+url : https://api.github.com
+Authentication_Type: HTTPBasicAuth
+HTTPBasicAuth:
+  username: xxxxxxxxx
+  password: xxxxxxxxx
+HTTPDigestAuth:
+  username: null
+  password: null
+Session:
+  cookie_header:
+    header: 'sample cookie'
+  Auth: False
+  username: 'user'
+  password: 'password'
+
+#Make rest_header when you want to send any custom headers
+headers:
+  "Content-Type": "application/json"
+```
++ url: API test URL
++ Authentication_Type: Authentication type has to be given. Default null.
++ headers: Custom headers has to be added to send in every request.
+
+**Step 2:** Importing `pyRest_lib`
+`from rest_lib import pyRest_lib`
+
+**Step 3:**
+```python
+def setUp(self):
+        file = os.path.abspath('resources//config.yaml')        # Step 1
+        self.rest_obj = pyRest_lib.PyRestLib(file_path=file,auth='HTTPBasicAuth')    # Step 2
+        self.log = self.rest_obj.get_logObj()                   # Step 3
+        self.json = self.rest_obj.get_jsonObj()                 # Step 3
+```
+1. Getting the config file path location
+2. Passing file path to `PyRestLib` class and authentication type.
+3. Getting `json` and `logger` object
+
+**Step 4:**
+Now writing unittests for GET request.
+GET
+Sample Request:
+    `GET https://api.github.com/user/following`
+Response:
+Status: 200 OK
+```json
+[{
+	"login": "jeevan449",
+	"id": 20350885,
+	"avatar_url": "https://avatars1.githubusercontent.com/u/20350885?v=4",
+	"gravatar_id": "",
+	"url": "https://api.github.com/users/jeevan449",
+	"html_url": "https://github.com/jeevan449",
+	"followers_url": "https://api.github.com/users/jeevan449/followers",
+	"following_url": "https://api.github.com/users/jeevan449/following{/other_user}",
+	"gists_url": "https://api.github.com/users/jeevan449/gists{/gist_id}",
+	"starred_url": "https://api.github.com/users/jeevan449/starred{/owner}{/repo}",
+	"subscriptions_url": "https://api.github.com/users/jeevan449/subscriptions",
+	"organizations_url": "https://api.github.com/users/jeevan449/orgs",
+	"repos_url": "https://api.github.com/users/jeevan449/repos",
+	"events_url": "https://api.github.com/users/jeevan449/events{/privacy}",
+	"received_events_url": "https://api.github.com/users/jeevan449/received_events",
+	"type": "User",
+	"site_admin": false
+}]
+```
+Unittest for sending GET request and verifying response `data` & `status code` .
+```python
+    def test_get_following(self):
+        path = '/user/following'
+        response = self.rest_obj.send_request(path,method_name='GET')   # Step 1
+        code = response['code']                                         # Step 2
+        data = response['data']                                         # Step 3
+        verify_data = self.json.get_key_value(response_data,'login')
+        self.assertEqual(verify_data,'jeevan449')
+        self.assertEqual(code,200)                                      # Step
+```
